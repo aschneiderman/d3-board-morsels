@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <link href="../bites.css" rel="stylesheet" media="screen">
+  <style>
+  path {
+    fill: none;
+    stroke: #000;
+    stroke-width: 0px;
+  }
+  circle {
+    fill: orange;
+  }
+</style>
+</head>
+<body>
+<h1>Custom Tweening:  Opt Outs Along a Path</h1>
+<p> The trick to make this work: create an ending transition</p>
+<svg width="960" height="500"></svg>        <!-- SVG graphics will go here  -->
+
+<script type="text/javascript">
+// Set the parameters
+var timeToTravelPath = 3500;
+var pathPoints = [
+  [80, 200],
+  [400, 400],
+  [600, 200],
+  [800, 400]
+];
+
+var svg = d3.select("svg");
+
+// Draw the path; doesn't show up because of path style above makes it invisible
+var path = svg.append("path")
+    .data([pathPoints])
+    .attr("d",  d3.line()
+    .curve(d3.curveCatmullRom.alpha(0.5))
+    );
+
+ [0,1,2,3,4].forEach(function (d) {
+  // Create the circle that's going to travel around the path
+  svg.append("circle")
+    .attr("r", 13)
+    .attr("transform", "translate(" + pathPoints[0] + ")")   // Starts the circle at the first point
+    .transition()
+      .duration(timeToTravelPath)
+      .delay(d * 250)
+      .ease(d3.easeLinear)
+      .style("fill", "red")
+      .attrTween("transform", translateAlong(path.node()))
+      .transition()
+        .duration(600)
+        .attr("cx",  20 + (4-d)*30)
+        .style("fill", "purple")
+        ;
+    });
+
+
+// Returns the commands for creating the specified path
+// And yeah, this is weird -- really don't sweat this unless you are planning on using this technique a bunch
+function translateAlong(path) {
+  var pathLength = path.getTotalLength();
+  return function(d, i, a) {
+    return function(t) {
+      var p = path.getPointAtLength(t * pathLength);
+      return "translate(" + p.x + "," + p.y + ")";
+    };
+  };
+}
+</script>
+
+</body>
+</html>
