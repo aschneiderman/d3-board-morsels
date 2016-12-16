@@ -18,11 +18,21 @@ body {
 <ul>
   <li><a href="manipulate-svg-icons/icon-simple.html">Icon Test 1</a></li>
   <li><a href="manipulate-svg-icons/icon-simple2.html">Icon Test 2</a></li>
-  <li><a href="manipulate-svg-icons/icon-simple3.html">Icon Test 3</a></li>
+  <li><a href="manipulate-svg-icons/icon-simple3.html">Icon Test 3</a>: copying and pasting HTML doesn't work with IE!  Need to try another approach -- turn into "getIcon" function?</li>
 
 </ul>
+<p> A thought:  maybe for our version, we do it using the build-each-time  approach, since there shouldn't be a ton of them, we encapsulate it so it's not a huge deal, then we ask folks for help.  </p>
+<p>Also, wait until we know what we actually want to do, <i>then</i> worry about it if we need the technique. </p>
 
+<p>Would it bother me if I only had to deal with one path? Nope, it would make sense.  So why is multiple paths such a big deal?  I think I need to just let this one go.</p>
+<h2>Up Next</h2>
+<ul>
+  <li>Try playing with creating cards -- rounded rectangles with areas that have text</li>
+  <li>ing: aybe try storing the icon in a g, with an outer g that handles the transition?  That way, don't have to worry about weirdo transform issues -- especially since most icons, cards, etc. will have multiple parts, such as titles.</li>
+</ul>
 <h2>Things to Explore</h2>
+
+
 SVG
 <ul>
   <li><a href="https://www.youtube.com/watch?v=1Tl88alW6WM">Design game automation with svg</a></li>
