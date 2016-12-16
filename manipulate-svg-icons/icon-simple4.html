@@ -2,10 +2,11 @@
 <head>
   <meta charset="utf-8">
 <script src="https://d3js.org/d3.v4.min.js"></script>       <!-- Load the d3 library -->
-  <link href="../morsels.css" rel="stylesheet" media="screen">      <!-- Taste of D3's CSS; you can get rid of it in your version -->
+  <link href="../morsels.css" rel="stylesheet" media="screen">
 </head>
 <body>
-<h1>Simple Icon</h1>
+<h1>Simple Icons</h1>
+
 <svg width="900" height="900">
 
 </svg>
@@ -21,6 +22,7 @@ var microwave = ["M251.281,203.904c4.215-2.116,5.931-7.236,3.823-11.452c-2.116-4
 ];
 
 
+
 var colors = ['brown', 'red', 'blue', 'orange'];
 
 // For each color, create one of the icons
@@ -28,6 +30,7 @@ colors.forEach( function(color, position) {
   var icon = d3.select("svg")
     .append("g")
       .attr("id", "microwave-" + color)
+      .classed('icon', true)       // I'm calling the class 'icon', but I could've called it anything
       .attr("fill", color);
 
   // Add each of the paths that create the SVG (the mmicrowave icon has more than one path)
