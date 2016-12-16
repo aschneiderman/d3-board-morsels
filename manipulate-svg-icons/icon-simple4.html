@@ -6,12 +6,11 @@
 </head>
 <body>
 <h1>Simple Icon</h1>
-<svg width="900" height="900" id="selected_states" class="SVG_playground">
+<svg width="900" height="900">
 
 </svg>
 
 <script type="text/javascript">
-var test = 3;
 
 var microwave = ["M251.281,203.904c4.215-2.116,5.931-7.236,3.823-11.452c-2.116-4.215-7.236-5.922-11.452-3.823  c-0.896,0.452-21.786,11.153-21.786,33.237c0,12.066,6.374,18.449,11.034,23.1c4.181,4.181,6.033,6.238,6.033,11.034  c0,11.375-12.1,17.835-12.39,17.988c-4.181,2.125-5.88,7.228-3.78,11.426c1.502,2.995,4.514,4.719,7.646,4.719  c1.28,0,2.586-0.29,3.806-0.896C235.11,288.785,256,278.084,256,256c0-12.066-6.374-18.449-11.034-23.1  c-4.181-4.181-6.033-6.238-6.033-11.034C238.933,210.415,251.204,203.938,251.281,203.904z"
 , "M183.014,203.904c4.215-2.116,5.931-7.236,3.823-11.452c-2.125-4.215-7.228-5.922-11.452-3.823   c-0.896,0.452-21.786,11.153-21.786,33.237c0,12.066,6.374,18.449,11.034,23.1c4.181,4.181,6.033,6.238,6.033,11.034  c0,11.375-12.1,17.835-12.39,17.988c-4.181,2.125-5.88,7.228-3.78,11.426c1.502,2.995,4.514,4.719,7.646,4.719  c1.28,0,2.586-0.29,3.806-0.896c0.896-0.452,21.786-11.153,21.786-33.237c0-12.066-6.374-18.449-11.034-23.1  c-4.181-4.181-6.033-6.238-6.033-11.034C170.667,210.415,182.938,203.938,183.014,203.904z"
@@ -22,21 +21,33 @@ var microwave = ["M251.281,203.904c4.215-2.116,5.931-7.236,3.823-11.452c-2.116-4
 ];
 
 
+var colors = ['brown', 'red', 'blue', 'orange'];
 
-d3.select("svg")
-.append("g")
-  .attr("transform", "scale(0.2) translate(600,0)")
-  .attr("id", 'microwave')
-  .selectAll("path")
+// For each color, create one of the icons
+colors.forEach( function(color, position) {
+  var icon = d3.select("svg")
+    .append("g")
+      .attr("id", "microwave-" + color)
+      .attr("fill", color);
+
+  // Add each of the paths that create the SVG (the mmicrowave icon has more than one path)
+  icon.selectAll("path")
     .data(microwave)
     .enter()
     .append("path")
-      .attr("d", function(d,i) { return d;})
-      .attr("fill", "brown");
+      .attr("d", function(d,i) { return d;}) ;
+
+  // Now just for giggles, let's add a transition that moves the icon to the place where we want it to be
+  // NOTE: usually when you are dealing with an SVG icon, you will need to scale it down;
+  // otherwise it'll be way bigger than you want
+  icon.transition()
+  .attr("transform", "scale(0.2) translate(600," + (position * 600) + ")")
+      .delay(position * 200)
+      .duration(800);
+  });
 
 </script>
 
-
-<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+<p> NOTE: need to attribute where SVG icons came from</p>
 </body>
 </html>
